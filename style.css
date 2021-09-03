@@ -69,10 +69,15 @@ body {
   }
   
   .image-dropping,
-  .image-upload-wrap:hover {
+  .image-upload-wrap:hover
+  .mt-50-pt-5-upload{
     background-color: #35465d;
     border: 1.5px dashed #ffffff;
+    display:none;
+
   }
+  
+  
   
   .image-title-wrap {
     padding: 0 15px 15px 15px;
