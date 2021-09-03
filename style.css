@@ -176,6 +176,13 @@ body {
       text-align: center;
       color : #35465d;
   }
+
+  .ctext {
+    font-family: Maplestory Light;
+      line-height: 1.53;
+      text-align: center;
+      color : #35465d;
+  }
   
   @media screen and(max-width: 600px){
       html{
