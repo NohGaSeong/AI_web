@@ -1,0 +1,237 @@
+	<!DOCTYPE html>
+<html lang = "en">
+	<head>
+<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Bootstrap CSS -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+			crossorigin="anonymous"
+		/>
+
+		<title>페스트푸드 kcal 확인</title>
+
+		<link rel="stylesheet" href="style.css" />
+	</head>
+
+	<link rel="stylesheet" href="style.css" />
+
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light nav-distance">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">kcal 확인기</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+					aria-controls="navbarNav"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="#">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Features</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Pricing</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+								>Disabled</a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<section class="section">
+			<h1 class="title">페스트푸드 kcal 표기</h1>
+			<h2 class="subtitle">내가 먹고 있는 음식의 칼로리는?</h2>
+		</section>
+		<section class="youtube">
+			<div class="mt-5 youtube-cover d-flex <flex-row-reverse></flex-row-reverse>">
+				<a href="" class="youtube-link"></a><img src="" alt="" class="youtube-icon" />
+			</div>
+		</section>
+		<script
+			class="jsbin"
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
+		></script>
+		<div class="container file-upload">
+			<div class="image-upload-wrap">
+				<input
+					class="file-upload-input"
+					type="file"
+					onchange="readURL(this);"
+					accept="image/*"
+				/>
+				<div class="drag-text">
+					<img src="img\ddddd.png" class="mt-5 pt-5 upload" />
+					<h3 class="mb-5 pb-5 pt-4 upload-text">
+                        
+						음식 사진을 <br />찍거나<br />
+						눌러서<br />
+						업로드해주세요
+					</h3>
+				</div>
+			</div>
+			<div class="file-upload-content">
+				<img class="file-upload-image" id="food-image" src="#" alt="your image" />
+                <p class="result-message"></p>
+				<div id="label-container"></div>
+				<div class="image-title-wrap">
+					<button type="button" onclick="removeUpload()" class="remove-image">
+						제거
+					</button>
+				</div>
+			</div>
+		</div>
+		<div id="webcam-container"></div>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+			integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+			integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+		<script>
+			function readURL(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function (e) {
+						$('.image-upload-wrap').hide();
+
+						$('.file-upload-image').attr('src', e.target.result);
+						$('.file-upload-content').show();
+
+						$('.image-title').html(input.files[0].name);
+					};
+
+					reader.readAsDataURL(input.files[0]);
+					init().then(function () {
+						console.log('hello');
+						predict();
+					});
+				} else {
+					removeUpload();
+				}
+			}
+
+			function removeUpload() {
+				$('.file-upload-input').replaceWith($('.file-upload-input').clone());
+				$('.file-upload-content').hide();
+				$('.image-upload-wrap').show();
+			}
+			$('.image-upload-wrap').bind('dragover', function () {
+				$('.image-upload-wrap').addClass('image-dropping');
+			});
+			$('.image-upload-wrap').bind('dragleave', function () {
+				$('.image-upload-wrap').removeClass('image-dropping');
+			});
+		</script>
+		<script type="text/javascript">
+			// More API functions here:
+			// https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+			// the link to your model provided by Teachable Machine export panel
+			const URL = 'https://teachablemachine.withgoogle.com/models/RQoN3Xz5Q/';
+
+			let model, webcam, labelContainer, maxPredictions;
+
+			// Load the image model and setup the webcam
+			async function init() {
+				const modelURL = URL + 'model.json';
+				const metadataURL = URL + 'metadata.json';
+
+				// load the model and metadata
+				// Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+				// or files from your local hard drive
+				// Note: the pose library adds "tmImage" object to your window (window.tmImage)
+				model = await tmImage.load(modelURL, metadataURL);
+				maxPredictions = model.getTotalClasses();
+				labelContainer = document.getElementById('label-container');
+				for (let i = 0; i < maxPredictions; i++) {
+					// and class labels
+					labelContainer.appendChild(document.createElement('div'));
+				}
+			}
+			// run the webcam image through the image model
+			async function predict() {
+				// predict can take in an image, video or canvas html element
+				var image = document.getElementById('food-image');
+				const prediction = await model.predict(image, false);
+                prediction.sort((a,b)=> parseFloat(b.probability) - parseFloat(a.probability));
+                console.log(prediction[0].className);
+                var resultMessege;
+                    switch(prediction[0].className){
+                        case "떡볶이" : {
+							resultMessege = "떡볶이:482kcal(1인분)|자전거타기:2시간 23분, 계단 오르내리기:1시간 40분, 수영 (자유형):30분"
+							break;
+						}
+                        case "치즈스틱" :
+                            resultMessege = "치즈스틱:83kcal(1개)|  산책 40분,계단 오르내리기 20분,조깅 10분"
+                        case "김밥" :
+                            resultMessege = "김밥:318kcal(1줄)|  산책 2시간 30분,계단 오르내리기 1시간 10분,수영(자유형) 25분"
+                            break;
+                        case "닭꼬치":
+                            resultMessege = "닭꼬치:176.7kcal(1개)| 산책 1시간 20분 , 계단 오르내리기 35분 , 수영(자유형) 10분"
+                            break;
+                        case "핫도그":
+                            resultMessege = "핫도그:230kcal(1개)|  산책 1시간 40분, 계단 오르내리기 55분, 수영(자유형) 15분" 
+                            break;
+                        case "콜라":
+                            resultMessege = "콜라:165kcal(1캔)|  실내 자전거 30분, 보통 걸음 걷기 운동 50분, 계단 오르기 30분"
+                            break;
+                         case "햄버거":
+                            resultMessege = "햄버거:294.9kcal(100g)|  줄넘기 30분, 수영(평영) 30분, 스피닝 30분" 
+                            break;
+                        case "치즈볼":
+                            resultMessege = "치즈볼:562.6kcal(100g)|  트램펄린 45분, 줌바 45분, 복싱 1시간"
+                            break;
+                        case "어묵":
+                            resultMessege = "어묵:130kcal(1개)|  배구 45분, 농구 15분, 줄넘기 15분"
+                            break;
+                        case "피자":
+                            resultMessege = "피자:3~400kcal(1조각)|  스피닝 30분, 계단 뛰어오르기 30분, 수영(접영) 30분"
+                            break;
+                        case "튀김":
+                            resultMessege = "튀김:300kcal(1인분)|  복싱 30분, 줄넘기 30분, 스피닝 30분"
+                            break;
+                        case "치킨":
+                            resultMessege = "치킨:2000kcal(1마리)|  산책 15시간 10분,  계단오르기 7시간, 수영(자유형) 2시간 20분"
+							break;
+                        case "사이다":
+                            resultMessege = "사이다:155kcal(1캔)|  실내 자전거 30분, 보통 걸음 걷기 운동 50분, 계단 오르기 30분"
+                            break;
+                        defualt:
+                            resultMessege = "알 수 없음"
+                    }
+                    $('.result-message').html(resultMessege)
+			
+			}
+		</script>
+	</body>
+</html>
